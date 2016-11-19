@@ -7,7 +7,6 @@ var $ = require('dombo');
 
 var ALT = 18;
 
-var $window = $(window);
 var styleMac = fs.readFileSync(__dirname + '/index-mac.css', 'utf-8');
 var htmlMac = fs.readFileSync(__dirname + '/index-mac.html', 'utf-8');
 var styleWin = fs.readFileSync(__dirname + '/index-win.css', 'utf-8');
@@ -78,14 +77,6 @@ TitleBar.prototype.appendTo = function(target) {
 
 	var $element = $(this.element);
 
-	$window.on('keydown', this._onkeydown = function(e) {
-		if(e.keyCode === ALT) $element.addClass('alt');
-	});
-
-	$window.on('keyup', this._onkeyup = function(e) {
-		if(e.keyCode === ALT) $element.removeClass('alt');
-	});
-
 	target.appendChild(this.element);
 	return this;
 };
@@ -93,8 +84,6 @@ TitleBar.prototype.appendTo = function(target) {
 TitleBar.prototype.destroy = function() {
 	var parent = this.element.parentNode;
 	if(parent) parent.removeChild(this.element);
-	$window.off('keydown', this._onkeydown);
-	$window.off('keyup', this._onkeyup);
 	return this;
 };
 
